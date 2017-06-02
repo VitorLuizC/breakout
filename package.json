@@ -1,0 +1,17 @@
+{
+  "name": "breakout",
+  "version": "0.1.0",
+  "description": "A simple breakout game.",
+  "main": "src/index.js",
+  "keywords": [
+    "breakout",
+    "breakout-game",
+    "game",
+    "canvas"
+  ],
+  "author": {
+    "name": "Vitor Cavalcanti",
+    "email": "vitorluizc@outlook.com"
+  },
+  "license": "MIT",
+}

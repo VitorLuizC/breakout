@@ -1,0 +1,15 @@
+root = true
+
+[{src/*,build/*}]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[{package.json,.babelrc,.eslintrc.json}]
+indent_size = 2
+indent_style = space
+
+[{src/*.js,build/*.js,src/*.html,src/*.css}]
+indent_size = 2
+indent_style = space
