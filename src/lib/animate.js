@@ -1,5 +1,5 @@
 /**
- * @typedef Animation
+ * @typedef {Object} Animation
  * @property {function} animation
  */
 

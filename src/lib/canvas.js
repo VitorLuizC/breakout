@@ -38,14 +38,12 @@ export function create(parent, options) {
  * @returns {Canvas}
  */
 export function select(target, options = {}) {
-  const {
-    width = 640,
-    height = 480
-  } = options
   const element = (typeof target === 'string') ? document.querySelector(target) : target
 
   if (!(element instanceof HTMLCanvasElement))
     throw new Error('Can\'t get <canvas>')
+
+  const { width = 640, height = 480 } = options
 
   element.width = width
   element.height = height

@@ -12,21 +12,13 @@
  * @property {string} color
  */
 
-
 /**
  * @param {CanvasRenderingContext2D} context
  * @param {DrawOptions} options
  */
-export default function draw(context, options = {}) {
-  const {
-    shape = 'rect',
-    size = [50, 50],
-    position: {
-      x = 0,
-      y = 0
-    } = {},
-    color = '#000'
-  } = options
+export function draw(context, options = {}) {
+  const { shape = 'rect', size = [50, 50] } = options
+  const { x = 0, y = 0 } = options.position || {}
 
   context.beginPath()
 
@@ -37,7 +29,18 @@ export default function draw(context, options = {}) {
     context.rect(x, y, width, height)
   }
 
+  const { color = '#000' } = options
+
   context.fillStyle = color
   context.fill()
   context.closePath()
+}
+
+/**
+ * 
+ * @param {CanvasRenderingContext2D} context
+ * @param {{width:number, height:number}} bounds
+ */
+export function clean(context, { width, height }) {
+  context.clearRect(0, 0, width, height)
 }
