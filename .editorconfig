@@ -1,15 +1,21 @@
 root = true
 
-[{src/*,build/*}]
+# Default editor settings
+[*]
 charset = utf-8
 end_of_line = crlf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[{package.json,.babelrc,.eslintrc.json}]
-indent_size = 2
-indent_style = space
+# Ignore distibution files and Node.js modules
+[{dist/*,node_modules/*}]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
 
-[{src/*.js,build/*.js,src/*.html,src/*.css}]
+
+# Source files
+[{src/*.js,build/*.js,src/*.html,src/*.css,*.json,.babelrc}]
 indent_size = 2
 indent_style = space

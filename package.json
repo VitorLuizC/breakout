@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config build",
-    "watch": "webpack --config build --watch --env development"
+    "dev": "webpack-dev-server --config build --env development --hot --open"
   },
   "keywords": [
     "breakout",
@@ -25,6 +25,7 @@
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.28.0",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
   }
 }
