@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config build",
-    "watch": "webpack --config build --watch"
+    "watch": "webpack --config build --watch --env development"
   },
   "keywords": [
     "breakout",

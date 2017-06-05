@@ -9,6 +9,7 @@ function getConfiguration(env) {
       filename: 'js/[name].js',
       path: path.resolve(__dirname, '../dist')
     },
+    devtool: env === 'development' ? 'source-map' : false,
     module: {
       rules: getLoaders(env)
     },
