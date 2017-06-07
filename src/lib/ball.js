@@ -36,7 +36,7 @@ function createBall() {
     y: 50,
     size: 50,
     opacity: 1,
-    velocity: 10,
+    velocity: 4,
     direction: {
       x: -1,
       y: -1

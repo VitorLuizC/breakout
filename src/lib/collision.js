@@ -28,7 +28,7 @@ export function collide(a, b, type = 'contain') {
    */
   const colisions = []
 
-  if (type === 'contains') {
+  if (type === 'contain') {
     if (a.bounds.top <= b.bounds.top)
       colisions.push('top')
     if (a.bounds.right >= b.bounds.right)
