@@ -15,7 +15,8 @@
   ],
   "author": {
     "name": "Vitor Cavalcanti",
-    "email": "vitorluizc@outlook.com"
+    "email": "vitorluizc@outlook.com",
+    "url": "https://vitorluizc.github.io"
   },
   "license": "MIT",
   "devDependencies": {
