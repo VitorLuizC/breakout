@@ -11,14 +11,9 @@
  */
 
 /**
- * @typedef {Object} IGameObject
- * @property {Bounds} bounds
- */
-
-/**
- * @param {IGameObject} a
- * @param {IGameObject} b
- * @param {('contain')}
+ * @param {Bounds} a
+ * @param {Bounds} b
+ * @param {('contain')} type
  * @returns {Collisions}
  */
 export function collide(a, b, type = 'contain') {
@@ -29,14 +24,23 @@ export function collide(a, b, type = 'contain') {
   const colisions = []
 
   if (type === 'contain') {
-    if (a.bounds.top <= b.bounds.top)
+    if (a.top < b.top)
       colisions.push('top')
-    if (a.bounds.right >= b.bounds.right)
+    if (a.right > b.right)
       colisions.push('right')
-    if (a.bounds.bottom >= b.bounds.bottom)
+    if (a.bottom > b.bottom)
       colisions.push('bottom')
-    if (a.bounds.left <= b.bounds.left)
+    if (a.left < b.left)
       colisions.push('left')
+  } else if (type === 'hit') {
+    if (a.bottom > b.top) {
+      if (a.right > b.left && a.left < b.right)
+        colisions.push('top')
+      else if (a.right > b.left && a.left < b.left)
+        colisions.push('top', 'right')
+      else if (a.left < b.right && a.right > b.right)
+        colisions.push('top', 'left')
+    }
   }
 
   return colisions

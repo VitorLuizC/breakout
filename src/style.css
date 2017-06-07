@@ -8,13 +8,13 @@ body {
   margin: 0
 }
 
+canvas {
+  display: block
+}
+
 main {
   display: flex;
   align-items: center;
   justify-content: center
 }
 
-main,
-canvas {
-  display: block
-}

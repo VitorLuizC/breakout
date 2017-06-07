@@ -20,6 +20,8 @@ import { draw } from './draw'
  * @property {string} color
  * @property {Position} position
  * @property {[number,number]} size
+ * @property {Bounds} bounds
+ * @property {function(CanvasRenderingContext2D):void} draw
  */
 
 /**
@@ -31,6 +33,9 @@ export default function createPaddle(initialPosition) {
     color: 'red',
     size: [100, 30],
     position: initialPosition,
+    get bounds() {
+      return getBounds(this)
+    },
     draw: function (context) {
       drawPaddle(context, this)
     }
@@ -42,7 +47,7 @@ export default function createPaddle(initialPosition) {
  * @param {CanvasRenderingContext2D} context
  * @param {Paddle} paddle
  */
-export function drawPaddle(context, paddle) {
+function drawPaddle(context, paddle) {
   draw(context, { ...paddle })
 }
 
@@ -51,9 +56,11 @@ export function drawPaddle(context, paddle) {
  * @param {Paddle} paddle
  * @returns {Bounds}
  */
-export function getBounds(paddle) {
+function getBounds(paddle) {
   return {
-    top: paddle.position.x - paddle.size[0] / 2,
-    bottom: paddle.position.x + paddle.size[0] / 2
+    top: paddle.position.y,
+    right: paddle.position.x + paddle.size[0],
+    bottom: paddle.position.y + paddle.size[1],
+    left: paddle.position.x
   }
 }

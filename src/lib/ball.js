@@ -9,7 +9,7 @@ import { draw } from './draw'
  */
 
 /**
- * @typedef {Object} Direction
+ * @typedef {Object} Axis
  * @property {number} x
  * @property {number} y
  */
@@ -17,11 +17,10 @@ import { draw } from './draw'
 /**
  * Representation of ball.
  * @typedef {Object} Ball
- * @property {number} x
- * @property {number} y
  * @property {number} size
  * @property {string} color
- * @property {Direction} direction
+ * @property {Axis} direction
+ * @property {Axis} position
  * @property {Bounds} bounds
  * @property {function(CanvasRenderingContext2D):void} draw
  */
@@ -30,43 +29,46 @@ import { draw } from './draw'
  * Creates a ball.
  * @returns {Ball}
  */
-function createBall() {
-  const ball = {
-    x: 50,
-    y: 50,
+export default function createBall() {
+  return {
+    color: 'rgb(155,89,182)',
     size: 50,
-    opacity: 1,
+    position: {
+      x: 50,
+      y: 50
+    },
     velocity: 4,
     direction: {
       x: -1,
       y: -1
     },
-    get color() {
-      return `rgba(155, 89, 182, ${this.opacity})`
-    },
     get bounds() {
-      return {
-        top: this.y - this.size / 2,
-        right: this.x + this.size / 2,
-        bottom: this.y + this.size / 2,
-        left: this.x - this.size / 2
-      }
+      return getBounds(this)
     },
     draw(context) {
-      // TODO: Use pick helper.
-      draw(context, {
-        size: this.size,
-        shape: 'circle',
-        color: this.color,
-        position: {
-          x: this.x,
-          y: this.y
-        }
-      })
+      this.position = {
+        x: this.position.x + this.velocity * this.direction.x,
+        y: this.position.y + this.velocity * this.direction.y
+      }
+      drawBall(context, this)
     }
   }
-
-  return ball
 }
 
-export default createBall
+/**
+ * Gets ball's bounds.
+ * @param {Ball} ball
+ * @returns {Bounds}
+ */
+function getBounds(ball) {
+  return {
+    top: ball.position.y - ball.size / 2,
+    right: ball.position.x + ball.size / 2,
+    bottom: ball.position.y + ball.size / 2,
+    left: ball.position.x - ball.size / 2
+  }
+}
+
+function drawBall(context, ball) {
+  draw(context, { shape: 'circle', ...ball })
+}

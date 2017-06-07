@@ -4,10 +4,10 @@ import { clean } from './lib/draw'
 import { collide } from './lib/collision'
 import createBall from './lib/ball'
 import createPaddle from './lib/paddle'
+import * as key from './lib/key'
 
-const { context, element: { width, height } } = canvas.select('#game')
-const ball = createBall()
-const paddle = createPaddle({ x: width / 2, y: height - 40 })
+const { context, element } = canvas.select('#game')
+const { width, height } = element
 const container = {
   bounds: {
     top: 0,
@@ -16,25 +16,41 @@ const container = {
     left: 0
   }
 }
+const ball = createBall()
+const paddle = createPaddle({ x: width / 2, y: height - 40 })
+const animation = animate(play)
 
-const animation = animate(() => {
+animation.start()
+
+function play() {
   clean(context, { width, height })
 
-  const collisions = collide(ball, container, 'contain')
-  const hitX = ['right', 'left'].some(collision => collisions.includes(collision))
-  const hitY = ['top', 'bottom'].some(collision => collisions.includes(collision))
+  const ballContainerHits = collide(ball.bounds, container.bounds)
+  const ballPaddleHits = collide(ball.bounds, paddle.bounds, 'hit')
 
-  if (hitX)
+  if (includesSome(ballContainerHits, 'right', 'left'))
     ball.direction.x = -(ball.direction.x)
 
-  if (hitY)
+  if (includesSome(ballPaddleHits, 'top') ||
+      includesSome(ballContainerHits, 'top'))
     ball.direction.y = -(ball.direction.y)
 
-  ball.x = ball.x + ball.velocity * ball.direction.x
-  ball.y = ball.y + ball.velocity * ball.direction.y
+  if (key.isPress('ArrowRight'))
+    paddle.position.x += 4
+
+  if (key.isPress('ArrowLeft'))
+    paddle.position.x -= 4
 
   ball.draw(context)
   paddle.draw(context)
-})
+}
 
-animation.start()
+/**
+ * Checks if one of targets is present on array.
+ * @param {Array.<*>} array
+ * @param {(...*)} targets
+ * @returns {boolean}
+ */
+function includesSome(array, ...targets) {
+  return targets.some(target => array.includes(target))
+}
